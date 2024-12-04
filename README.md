@@ -22,6 +22,8 @@ Du ska bygga ett cocktail-wiki som hämtar data från API:et [The Cocktail DB AP
 
 Vill man få lite inspiration om hur ett sådant Wiki kan se ut så får man gärna kolla in deras egna sida: [The Cocktail DB Home Page](https://www.thecocktaildb.com/).
 
+Forka ner detta repo och börja koda! Eller ta ner det som zipfiler och öppna upp det i ert Visual Studio Code.
+
 ## Allmän information
 
 Kraven är uppdelade i G- och VG-nivå. För att få G så måste man givetvis klara alla G-kraven och vill man sikta på VG så behöver man klara båda G- och VG-kraven.
