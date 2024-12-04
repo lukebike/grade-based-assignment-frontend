@@ -18,7 +18,7 @@
 
 ## Instruktioner
 
-Du ska bygga ett cocktail-wiki som hämtar data från API:et [The Cocktail DB API](https://www.thecocktaildb.com/api.php) och visar upp det i din applikation.
+Du ska bygga ett cocktail-wiki som hämtar data från API:et [The Cocktail DB API](https://www.thecocktaildb.com/api.php) och visar upp det i din applikation. Gå in på detta API:et och läs igenom vilka olika URL:er _( endpoints )_ som finns, och prova att trycka på de för att få en känsla av hur de funkar innan ni börjar koda. Ni har fått bas-filerna som ni behöver för att komma igång samt en hjälpfunktion som ni kan använda för att konvertera de "råa" cocktail objekten till lite mer lättarbetade objekt.
 
 Vill man få lite inspiration om hur ett sådant Wiki kan se ut så får man gärna kolla in deras egna sida: [The Cocktail DB Home Page](https://www.thecocktaildb.com/).
 
