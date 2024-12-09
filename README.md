@@ -81,7 +81,6 @@ Med det sagt så kommer jag ändå att kolla in er kod för att bedöma kvaliten
 
 - URL för att söka efter en cocktail efter namn: `www.thecocktaildb.com/api/json/v1/1/search.php?s=${cocktailName}
 `
-- The list can contain a maximum of 10 results. If there are more than 10 cocktails in the results, the list should be paginated.
 
 [Tillbaks till toppen](#inlämningsuppgfit-grundläggande-programmering---the-cocktail-db)
 
@@ -118,3 +117,31 @@ Med det sagt så kommer jag ändå att kolla in er kod för att bedöma kvaliten
 Inlämning sker på Ominway senast fredagen den 20e klockan 23:59. Inlämning är ert githubrepo som inte får uppdateras efter det klockslaget.
 
 [Tillbaks till toppen](#inlämningsuppgfit-grundläggande-programmering---the-cocktail-db)
+
+## Ord från Niklas
+
+`utilities.js`
+
+I detta repo som ni ska forka eller ladda ner som zip så finns det en indexfil som heter utilites.js. Den innehåller en funktion för att konveratera den råa cocktail-datan ni får från API:et till ett mer lättarbetat objekt. Detta för att ge er lite hjälp på vägen. Om ni inspekterar den råa datan så tror jag ni kommer förstå vad jag menar. Denna funktion konverterar EN rå cocktail till en bearbetat cocktail så för att använda funktionen effektivt så bör den anropas i en loop eller arraymetod för att man ska kunna konvertera alla cocktailresultat till en skjysst array med bara bearbetade cocktails utan massa onödiga null-attribut och så. I övrigt kan ni bygga vidare på denna utilites-fil och läggain funktioner där som ni kan använda er utav i er applikation.
+
+`styling är valfritt!`
+
+Eftersom det här är en kurs inom JavaScript så kommer er styling inte att bedömmas. Det betyder rent krasst att ni kan ha en applikation utan någon som helst CSS, och väljer ni att ha det så, så finns det inget jag kan göra angående det. Men jag skulle givetvis uppskatta lite styling så ni bygger en fin applikation! :) Dock rekommenderar jag att fokusera på logiken och HTML-strukturen först och ta stylingen sist. Ni är välkomna att använda CSS-ramverk om ni vill, såsom Bootstrap, MUI, tailwind eller liknande. 
+
+
+`handledning`
+
+De kommande två veckorna så är jag schemalagt på extra handledningspass för er skull. Så schemat ser ut som följande:
+
+#### Vecka 50
+
+- Måndag 9 dec - Handledning på distans. 09-16.
+- Tisdag 10 dec - Handledning & genomgång om det behövs. På plats. 09-16
+- Onsdag 11 dec - Handledning på distans. 09-16.
+- Torsdag 12 dec - Handledning & genomgång om det behövs. På plats. 09-16
+
+#### Vecka 51
+
+- Måndag 16 dec - Handledning på distans. 09-16.
+- Tisdag 17 dec - Handledning & genomgång om det behövs. På plats/Distans. 09-16
+- Torsdag 19 dec - Handledning & genomgång om det behövs. På plats. 09-16
