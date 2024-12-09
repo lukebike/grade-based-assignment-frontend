@@ -13,6 +13,7 @@
 - [G-Krav](#g-krav)
 - [VG-krav](#vg-krav)
 - [Inlämning](#inlämning)
+- [Ord från Niklas](#ord-från-niklas)
 
 </details>
 
@@ -126,8 +127,7 @@ I detta repo som ni ska forka eller ladda ner som zip så finns det en indexfil 
 
 `styling är valfritt!`
 
-Eftersom det här är en kurs inom JavaScript så kommer er styling inte att bedömmas. Det betyder rent krasst att ni kan ha en applikation utan någon som helst CSS, och väljer ni att ha det så, så finns det inget jag kan göra angående det. Men jag skulle givetvis uppskatta lite styling så ni bygger en fin applikation! :) Dock rekommenderar jag att fokusera på logiken och HTML-strukturen först och ta stylingen sist. Ni är välkomna att använda CSS-ramverk om ni vill, såsom Bootstrap, MUI, tailwind eller liknande. 
-
+Eftersom det här är en kurs inom JavaScript så kommer er styling inte att bedömmas. Det betyder rent krasst att ni kan ha en applikation utan någon som helst CSS, och väljer ni att ha det så, så finns det inget jag kan göra angående det. Men jag skulle givetvis uppskatta lite styling så ni bygger en fin applikation! :) Dock rekommenderar jag att fokusera på logiken och HTML-strukturen först och ta stylingen sist. Ni är välkomna att använda CSS-ramverk om ni vill, såsom Bootstrap, MUI, tailwind eller liknande.
 
 `handledning`
 
@@ -145,3 +145,5 @@ De kommande två veckorna så är jag schemalagt på extra handledningspass för
 - Måndag 16 dec - Handledning på distans. 09-16.
 - Tisdag 17 dec - Handledning & genomgång om det behövs. På plats/Distans. 09-16
 - Torsdag 19 dec - Handledning & genomgång om det behövs. På plats. 09-16
+
+[Tillbaks till toppen](#inlämningsuppgfit-grundläggande-programmering---the-cocktail-db)
