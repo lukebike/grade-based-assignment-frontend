@@ -142,8 +142,7 @@ De kommande två veckorna så är jag schemalagt på extra handledningspass för
 
 #### Vecka 51
 
-- Måndag 16 dec - Handledning på distans. 09-16.
-- Tisdag 17 dec - Handledning & genomgång om det behövs. På plats/Distans. 09-16
+- Måndag 16 dec - Handledning & genomgång om det behövs. På plats. 09-16
 - Torsdag 19 dec - Handledning & genomgång om det behövs. På plats. 09-16
 
 [Tillbaks till toppen](#inlämningsuppgfit-grundläggande-programmering---the-cocktail-db)
