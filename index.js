@@ -1,24 +1,30 @@
-const cocktailName = document.querySelector("#cocktailName");
-const detailName = document.querySelector("#detailName");
-const cocktailImage = document.querySelector("#cocktailPicture");
+// ****** Cocktail Name and Picture ******
+const cocktailName = document.querySelector("#cocktail-name");
+const detailName = document.querySelector("#detail-name");
+const cocktailPicture = document.querySelector("#cocktail-picture");
+const detailPicture = document.querySelector("#detail-picture");
 
-const detailCategory = document.querySelector("#detailCategory");
-const cocktailTags = document.querySelector("#cocktailTags");
+// ****** Cocktail Details ******
+const detailCategory = document.querySelector("#detail-category");
+const cocktailTags = document.querySelector("#cocktail-tags");
+const cocktailInstructions = document.querySelector("#cocktail-instructions");
+const cocktailIngredients = document.querySelector("#cocktail-ingredients");
+const cocktailServing = document.querySelector("#cocktail-serving");
 
-const cocktailInstructions = document.querySelector("#cocktailInstructions");
-const cocktailIngredients = document.querySelector("#cocktailIngredients");
-const cocktailServing = document.querySelector("#cocktailServing");
-
+// ****** Buttons ******
 const randomizerButton = document.querySelector("#randomizer");
-const detailsButton = document.querySelector("#detailsButton");
+const detailsButton = document.querySelector("#detail-button");
 
+// ****** Navigation ******
 const navbar = document.querySelector(".navbar");
-const startPage = document.querySelector("#start-link");
-const detailsPage = document.querySelector("#details-page");
+const startPage = document.querySelector("#start-page");
+const detailsPage = document.querySelector("#detail-page");
 const searchPage = document.querySelector("#search-page");
 
+// ****** Empty Object to Store API data locally ******
 let cocktailData = {};
 
+// ***** Call to Cocktail API ******
 async function getRandomCocktail() {
   try {
     const response = await fetch(
@@ -30,16 +36,26 @@ async function getRandomCocktail() {
 
     const data = await response.json();
     cocktailData = data;
-    cocktailName.innerHTML = data.drinks[0].strDrink;
-    cocktailImage.src = data.drinks[0].strDrinkThumb;
-
-    detailName.innerText = `Cocktail Name: ${data.drinks[0].strDrink}`;
-    console.log(detailName);
-    console.log(data);
+    cocktailName.innerHTML = cocktailData.drinks[0].strDrink;
+    cocktailPicture.src = cocktailData.drinks[0].strDrinkThumb;
+    detailPicture.src = cocktailData.drinks[0].strDrinkThumb;
+    detailName.innerText = `Cocktail Name: ${cocktailData.drinks[0].strDrink}`;
+    detailCategory.innerText = `Category: ${cocktailData.drinks[0].strCategory}`;
+    cocktailTags.innerText = `Tags: ${cocktailData.drinks[0].strMeasure1}`;
+    cocktailInstructions.innerText = cocktailData.drinks[0].strInstructions;
+    // for (let i = 1; i <= 15; i++) {
+    //   const ingredients = `${cocktailData.drinks[0].strIngredient}${i}`;
+    //   if (ingredients) {
+    //     console.log(ingredients);
+    //   }
+    // }
+    cocktailServing.innerHTML = `Should be served in: ${cocktailData.drinks[0].strGlass}`;
   } catch (error) {
     console.error(error);
   }
 }
+
+// ****** FUNCTIONS ******
 navbar.addEventListener("click", handleOnNavBarClick);
 function handleOnNavBarClick(event) {
   const classList = event.target.classList;
@@ -67,4 +83,9 @@ randomizerButton.addEventListener("click", () => {
 startPage.addEventListener("click", () => {
   getRandomCocktail();
   console.log(cocktailData);
+});
+
+detailsButton.addEventListener("click", () => {
+  detailsPage.classList.add("open");
+  startPage.classList.remove("open");
 });

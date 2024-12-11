@@ -4,13 +4,13 @@ img {
 }
 
 #start-page,
-#details-page,
+#detail-page,
 #search-page {
   display: none;
 }
 
 #start-page.open,
-#details-page.open,
+#detail-page.open,
 #search-page.open {
   display: block;
 }
