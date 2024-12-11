@@ -2,3 +2,19 @@ img {
   width: 25%;
   height: 25%;
 }
+
+#start-page,
+#details-page,
+#search-page {
+  display: none;
+}
+
+#start-page.open,
+#details-page.open,
+#search-page.open {
+  display: block;
+}
+
+.link {
+  cursor: pointer;
+}
