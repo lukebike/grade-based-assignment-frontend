@@ -14,13 +14,16 @@ button:hover {
 
 #start-page,
 #detail-page,
-#search-page {
+#search-page,
+#favorites-page {
   display: none;
 }
 
 #start-page.open,
 #detail-page.open,
-#search-page.open {
+#search-page.open,
+#favorites-page.open,
+#search-result.open {
   display: block;
 }
 
@@ -33,7 +36,27 @@ body {
   font-weight: 900;
 }
 
+#search-result {
+  display: none;
+  border: black 5px solid;
+  max-height: fit-content;
+}
+
+#search-result li {
+  display: flex;
+  margin: 5px;
+}
+
 #search-result li:hover {
   cursor: pointer;
   color: blue;
+}
+
+.favorite-button {
+  color: red;
+}
+
+.favorite-button:hover {
+  color: rgb(rgba(255, 0, 0, 80), green, blue);
+  cursor: crosshair;
 }

@@ -1,9 +1,11 @@
 // ****** Cocktail Name and Picture ******
+
 const baseURL = "https://www.thecocktaildb.com/api/json/v1/1";
 const cocktailName = document.querySelector("#cocktail-name");
 const detailName = document.querySelector("#detail-name");
 const cocktailPicture = document.querySelector("#cocktail-picture");
 const detailPicture = document.querySelector("#detail-picture");
+const favoriteDetails = document.querySelector("#favorites-list");
 
 // ****** Cocktail Details ******
 const detailCategory = document.querySelector("#detail-category");
@@ -16,17 +18,21 @@ const cocktailServing = document.querySelector("#cocktail-serving");
 const randomizerButton = document.querySelector("#randomizer");
 const detailsButton = document.querySelector("#detail-button");
 const searchButton = document.querySelector("#search-button");
+const startButton = document.querySelector("#start-link");
+const favoritesButton = document.querySelector("#favorites-link");
 
 // ****** Navigation ******
 const navbar = document.querySelector(".navbar");
 const startPage = document.querySelector("#start-page");
 const detailsPage = document.querySelector("#detail-page");
 const searchPage = document.querySelector("#search-page");
+const favoritesPage = document.querySelector("#favorites-page");
 const searchResult = document.querySelector("#search-result");
 
 // ****** Empty Object to Store API data locally ******
 let cocktailData = {};
 let cocktailDetailsData = {};
+let favoritesList = [];
 
 // ****** Call to Random Cocktail API ******
 async function getRandomCocktail() {
@@ -73,9 +79,13 @@ async function getSearchCocktail() {
     console.log(data);
     for (let i = 0; i < data.drinks.length; i++) {
       const newResult = document.createElement("li");
+      const newFavorite = document.createElement("span");
       newResult.textContent = data.drinks[i].strDrink;
+      newFavorite.textContent = "Add to Favorites!";
+      newFavorite.classList.add("favorite-button");
+      newFavorite.dataset.id = data.drinks[i].idDrink;
       newResult.dataset.id = data.drinks[i].idDrink;
-      searchResult.appendChild(newResult);
+      searchResult.append(newResult, newFavorite);
     }
   } catch (error) {
     console.log(error);
@@ -83,7 +93,6 @@ async function getSearchCocktail() {
 }
 
 // ****** FUNCTIONS ******
-
 function cocktail(cocktailData) {
   cocktailName.innerHTML = cocktailData.drinks[0].strDrink;
   cocktailPicture.src = cocktailData.drinks[0].strDrinkThumb;
@@ -107,33 +116,54 @@ function cocktail(cocktailData) {
   }
 }
 
+function handleOnLinkClick(id) {
+  if (id === "start-link") {
+    startPage.classList.add("open");
+    detailsPage.classList.remove("open");
+    searchPage.classList.remove("open");
+    favoritesPage.classList.remove("open");
+  }
+
+  if (id === "search-link") {
+    searchPage.classList.add("open");
+    startPage.classList.remove("open");
+    detailsPage.classList.remove("open");
+    favoritesPage.classList.remove("open");
+  }
+
+  if (id === "favorites-link") {
+    favoritesPage.classList.add("open");
+    startPage.classList.remove("open");
+    detailsPage.classList.remove("open");
+    searchPage.classList.remove("open");
+  }
+}
+
+function favoritesListFunc() {
+  for (let i = 1; i < favoritesList.length; i++) {
+    const newLi = document.createElement("li");
+    const newImg = document.createElement("img");
+    newImg.src = favoritesList[i].drinks[0].strDrinkThumb;
+    newLi.textContent = favoritesList[i].drinks[0].strDrink;
+    favoriteDetails.append(newLi, newImg);
+  }
+}
+
 navbar.addEventListener("click", handleOnNavBarClick);
 function handleOnNavBarClick(event) {
   const classList = event.target.classList;
   if (classList.contains("link")) return handleOnLinkClick(event.target.id);
 }
 
-function handleOnLinkClick(id) {
-  if (id === "start-link") {
-    startPage.classList.add("open");
-    detailsPage.classList.remove("open");
-    searchPage.classList.remove("open");
-  }
-
-  if (id === "search-link") {
-    startPage.classList.remove("open");
-    detailsPage.classList.remove("open");
-    searchPage.classList.add("open");
-  }
-}
-
 randomizerButton.addEventListener("click", () => {
   cocktailIngredients.innerText = "";
   getRandomCocktail();
+  handleOnLinkClick("start-link");
 });
-startPage.addEventListener("click", () => {
+
+startButton.addEventListener("click", () => {
   getRandomCocktail();
-  console.log(cocktailData);
+  handleOnLinkClick("start-link");
 });
 
 detailsButton.addEventListener("click", () => {
@@ -143,6 +173,7 @@ detailsButton.addEventListener("click", () => {
 
 searchButton.addEventListener("click", () => {
   getSearchCocktail();
+  searchResult.classList.add("open");
 });
 
 searchResult.addEventListener("click", function (e) {
@@ -150,4 +181,16 @@ searchResult.addEventListener("click", function (e) {
   const drinkId = e.target.dataset.id;
   cocktailData.drinks[0].idDrink = drinkId;
   getDetailsCocktail();
+  if (e.target.classList.contains("favorite-button")) {
+    favoritesList.push(cocktailDetailsData);
+    favoritesListFunc();
+  }
+  console.log(favoritesList);
+  detailsPage.classList.add("open");
+  startPage.classList.remove("open");
+  searchPage.classList.remove("open");
+});
+
+favoritesButton.addEventListener("click", () => {
+  favoritesListFunc();
 });
