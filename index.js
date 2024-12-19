@@ -38,7 +38,6 @@ const cocktailSearch = document.querySelector("#cocktail-search");
 // ****** Empty Object to Store API data locally ******
 let cocktailData = {};
 let cocktailDetailsData = {};
-let favoritesList = [];
 let cocktailFiltersClass = "";
 
 // ****** Call to Random Cocktail API ******
@@ -70,7 +69,9 @@ async function getDetailsCocktail() {
   }
   const detailsData = await detailsResponse.json();
   cocktailDetailsData = detailsData;
+  cocktailData = detailsData;
   cocktail(cocktailDetailsData);
+  cocktail(cocktailData);
 }
 
 // ****** FUNCTIONS ******
@@ -121,13 +122,16 @@ function handleOnLinkClick(id) {
 }
 
 function favoritesListFunc() {
-  for (let i = 1; i < favoritesList.length; i++) {
-    const newLi = document.createElement("li");
-    const newImg = document.createElement("img");
-    newImg.src = favoritesList[i].drinks[0].strDrinkThumb;
-    newLi.textContent = favoritesList[i].drinks[0].strDrink;
-    favoriteDetails.append(newLi, newImg);
-  }
+  const newLi = document.createElement("li");
+  const newImg = document.createElement("img");
+  newImg.src = cocktailData.drinks[0].strDrinkThumb;
+  newLi.textContent = cocktailData.drinks[0].strDrink;
+  favoriteDetails.append(newLi, newImg);
+  localStorage.setItem("favorites", favoriteDetails);
+  localStorage.getItem("favorites");
+  window.alert(
+    `${cocktailData.drinks[0].strDrink} has been added to your favorites!`
+  );
 }
 
 navbar.addEventListener("click", handleOnNavBarClick);
@@ -165,17 +169,12 @@ searchResult.addEventListener("click", function (e) {
   cocktailData.drinks[0].idDrink = drinkId;
   getDetailsCocktail();
   if (e.target.classList.contains("favorite-button")) {
-    favoritesList.push(cocktailDetailsData);
+    console.log(cocktailData);
     favoritesListFunc();
   }
-  console.log(favoritesList);
   detailsPage.classList.add("open");
   startPage.classList.remove("open");
   searchPage.classList.remove("open");
-});
-
-favoritesButton.addEventListener("click", () => {
-  favoritesListFunc();
 });
 
 cocktailFilters.addEventListener("click", function (e) {
@@ -252,6 +251,7 @@ async function searchFilters() {
           searchResult.append(newResult, newFavorite);
         }
       }
+      cocktailDetailsData = data;
     } catch (error) {
       console.log(error);
       console.log(data);
