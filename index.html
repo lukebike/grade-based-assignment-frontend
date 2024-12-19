@@ -1,56 +1,96 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Exam - Luke Salem</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
     <link rel="stylesheet" href="index.css" />
   </head>
   <body>
-    <nav class="navbar">
-      <span class="link" id="start-link">Start</span>
-      <span class="link" id="search-link">Search</span>
-      <span class="link" id="favorites-link">Favorites</span>
-    </nav>
+    
+    <nav class="breadcrumb is-centered has-bullet-separator" aria-label="breadcrumbs" id="navbar">
+      <ul>
+        <li><span class="link" id="start-link">Start</span></li>
+        <li><span class="link" id="search-link">Search</span></li>
+        <li><span class="link" id="favorites-link">Favorites</span></li>
+      </ul>
+  </nav>
+  <section class="align">
+  <div class="card" style="max-width: 1000px">
     <section class="open" id="start-page">
       <div>
         <img src="logo.png" alt="" />
-        <h1 id="cocktail-name"></h1>
-        <img id="cocktail-picture" src="" alt="Cocktail Picture" />
+        <header class="card-header">
+          <h1 class="card-header-title" id="cocktail-name"></h1>
+        </header>
+        <figure class="image"><img style="max-height: 1000px" id="cocktail-picture" src="" alt="Cocktail Picture" /></figure>
+        
       </div>
     </section>
-    <button id="randomizer">Get Random Cocktail</button>
-      <button id="detail-button">**See More**</button></a>
-
+    <div class="card">
+      <footer class="card-footer">
+        <a href="#" class="card-footer-item" id="randomizer">Get Random Cocktail</a>
+        <a href="#" class="card-footer-item" id="detail-button">See More</a>
+      </footer>
+    </div>
+  </div>
+  </section>
+    <section class="align">
+    <div class="card" style="max-width: 900px">
     <section id="detail-page">
-      <h1 id="detail-name">Cocktail Name:</h1>
-      <img id="detail-picture" src="" alt="Cocktail Picture" />
-      <h2 id="detail-category">Category:</h2>
-      <h3 id="cocktail-tags">Tags:</h3>
-      <h4>Instructions:</h4>
-      <p id="cocktail-instructions"></p>
-      <h4>Ingredients:</h4>
-      <ul id="cocktail-ingredients">
+      <header class="card-header">
+        <p class="has-text-black">Details Page</p>
+      </header>
+      <h1 class="has-text-primary"	 id="detail-name">Cocktail Name:</h1>
+      <figure class="image"><img style="max-height: 900px"id="detail-picture" src="" alt="Cocktail Picture" /></figure>
+      <h2 class="has-text-warning" id="detail-category">Category:</h2>
+      <h3 class="has-text-info" id="cocktail-tags">Tags:</h3>
+      <h4 class="has-text-danger">Instructions:</h4>
+      <p class="has-text-dark" id="cocktail-instructions"></p>
+      <h4 class="has-text-danger">Ingredients:</h4>
+      <ul class="has-text-dark" id="cocktail-ingredients">
       </ul>
-      <h5 id="cocktail-serving">Should be served in:</h5>
+      <h5 class="has-text-danger" id="cocktail-serving">Should be served in:</h5>
+    </div>
     </section>
-
+  </section>
+  <section class="align">
+    <div class="card" style="max-width: 1000px">
     <section id="search-page">
-      <h1>Search Page</h1>
-      <p>This is the search page where you can search for cocktails</p>
-      <input type="text" id="cocktail-search" placeholder="Enter Cocktail Name">
-      <button id="search-button">Find Cocktail</button>
+      <header class="card-header">
+        <h1 class="has-text-black">Search Page</h1>
+      </header>
+      <input type="text" id="cocktail-search" placeholder="Choose Search Filter!">
       <ul id="search-result">
       </ul>
+      <div class="card">
+        <footer class="card-footer">
+          <div class="card-footer-item" id="filters">
+            <button id="search-button">Find Cocktail</button>
+            <button class="search-name">Name</button>
+            <button class="search-category">Category</button>
+            <button class="search-ingredient">Ingredient</button>
+            <button class="search-glass">Glass type</button>
+          </div>
+        </footer>
+      </div>
+    </div>
     </section>
-    
+  </section>
+  <section class="align">
+    <div class="card" style="max-width: 1000px">
     <section id="favorites-page">
-      <h1>Favorites Page</h1>
+      <header class="card-header">
+        <h1 class="has-text-black">Favorites Page</h1>
+      </header>
       <p>Here's a list of your favorites:</p>
       <ul id="favorites-list">
         <li>Margarita</li>
       </ul>
+    </div>
     </section>
+  </section>
     <script src="index.js" type="module"></script>
   </body>
 </html>
