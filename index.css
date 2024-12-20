@@ -1,187 +1,39 @@
-img {
-  width: 25%;
-  height: 25%;
-}
-
 .align {
   display: flex;
   justify-content: center;
   align-content: center;
 }
 
-button {
-  display: flex;
-  border: 3px solid;
-  margin: 3px;
-}
-
-#start-page,
-#detail-page,
-#search-page,
-#favorites-page {
-  display: none;
-}
-
-#start-page.open,
-#detail-page.open,
-#search-page.open,
-#favorites-page.open,
-#search-result.open {
-  display: block;
-}
-
-.link {
-  color: rgb(50, 115, 220);
-}
-
-.link:hover {
-  cursor: pointer;
-  color: rgba(50, 115, 220, 0.7);
-}
-
 body {
-  color: black;
-  font-weight: 900;
+  background-color: whitesmoke;
 }
 
-#search-result {
+.rounded-border {
+  border-radius: 8px;
+}
+
+.detail-label:not(:nth-child(1)) {
+  margin-top: 6px !important;
+}
+
+.divider {
+  height: 1px;
+  background-color: #ccc;
+}
+
+.result-row {
+  transition: all 250ms ease-in-out;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.result-row:hover {
+  background-color: #eee;
+}
+
+#start-page:not(.open),
+#detail-page:not(.open),
+#search-page:not(.open),
+#favorites-page:not(.open) {
   display: none;
-  border: black 5px solid;
-  max-height: fit-content;
-}
-
-#search-result li {
-  display: flex;
-  margin: 5px;
-}
-
-#search-result li:hover {
-  cursor: pointer;
-  color: blue;
-}
-
-.favorite-button {
-  color: red;
-}
-
-.favorite-button:hover {
-  color: rgb(rgba(255, 0, 0, 80), green, blue);
-  cursor: crosshair;
-}
-
-.filters {
-  margin-top: 5px;
-}
-
-button {
-  --bulma-button-family: false;
-  --bulma-button-weight: var(--bulma-weight-medium);
-  --bulma-button-border-color: var(--bulma-border);
-  --bulma-button-border-style: solid;
-  --bulma-button-border-width: var(--bulma-control-border-width);
-  --bulma-button-padding-vertical: 0.5em;
-  --bulma-button-padding-horizontal: 1em;
-  --bulma-button-focus-border-color: var(--bulma-link-focus-border);
-  --bulma-button-focus-box-shadow-size: 0 0 0 0.125em;
-  --bulma-button-focus-box-shadow-color: hsla(
-    var(--bulma-link-h),
-    var(--bulma-link-s),
-    var(--bulma-link-on-scheme-l),
-    0.25
-  );
-  --bulma-button-active-color: var(--bulma-link-active);
-  --bulma-button-active-border-color: var(--bulma-link-active-border);
-  --bulma-button-text-color: var(--bulma-text);
-  --bulma-button-text-decoration: underline;
-  --bulma-button-text-hover-background-color: var(--bulma-background);
-  --bulma-button-text-hover-color: var(--bulma-text-strong);
-  --bulma-button-ghost-background: none;
-  --bulma-button-ghost-border-color: transparent;
-  --bulma-button-ghost-color: var(--bulma-link-text);
-  --bulma-button-ghost-decoration: none;
-  --bulma-button-ghost-hover-color: var(--bulma-link);
-  --bulma-button-ghost-hover-decoration: underline;
-  --bulma-button-disabled-background-color: var(--bulma-scheme-main);
-  --bulma-button-disabled-border-color: var(--bulma-border);
-  --bulma-button-disabled-shadow: none;
-  --bulma-button-disabled-opacity: 0.5;
-  --bulma-button-static-color: var(--bulma-text-weak);
-  --bulma-button-static-background-color: var(--bulma-scheme-main-ter);
-  --bulma-button-static-border-color: var(--bulma-border);
-  --bulma-button-h: var(--bulma-scheme-h);
-  --bulma-button-s: var(--bulma-scheme-s);
-  --bulma-button-l: var(--bulma-scheme-main-l);
-  --bulma-button-background-l: var(--bulma-scheme-main-l);
-  --bulma-button-background-l-delta: 0%;
-  --bulma-button-hover-background-l-delta: var(
-    --bulma-hover-background-l-delta
-  );
-  --bulma-button-active-background-l-delta: var(
-    --bulma-active-background-l-delta
-  );
-  --bulma-button-color-l: var(--bulma-text-strong-l);
-  --bulma-button-border-l: var(--bulma-border-l);
-  --bulma-button-border-l-delta: 0%;
-  --bulma-button-hover-border-l-delta: var(--bulma-hover-border-l-delta);
-  --bulma-button-active-border-l-delta: var(--bulma-active-border-l-delta);
-  --bulma-button-focus-border-l-delta: var(--bulma-focus-border-l-delta);
-  --bulma-button-outer-shadow-h: 0;
-  --bulma-button-outer-shadow-s: 0%;
-  --bulma-button-outer-shadow-l: 20%;
-  --bulma-button-outer-shadow-a: 0.05;
-  --bulma-loading-color: hsl(
-    var(--bulma-button-h),
-    var(--bulma-button-s),
-    var(--bulma-button-color-l)
-  );
-  background-color: hsl(
-    var(--bulma-button-h),
-    var(--bulma-button-s),
-    calc(
-      var(--bulma-button-background-l) + var(--bulma-button-background-l-delta)
-    )
-  );
-  border-color: hsl(
-    var(--bulma-button-h),
-    var(--bulma-button-s),
-    calc(var(--bulma-button-border-l) + var(--bulma-button-border-l-delta))
-  );
-  border-style: var(--bulma-button-border-style);
-  border-width: var(--bulma-button-border-width);
-  box-shadow: 0 0.0625em 0.125em
-      hsla(
-        var(--bulma-button-outer-shadow-h),
-        var(--bulma-button-outer-shadow-s),
-        var(--bulma-button-outer-shadow-l),
-        var(--bulma-button-outer-shadow-a)
-      ),
-    0 0.125em 0.25em
-      hsla(
-        var(--bulma-button-outer-shadow-h),
-        var(--bulma-button-outer-shadow-s),
-        var(--bulma-button-outer-shadow-l),
-        var(--bulma-button-outer-shadow-a)
-      );
-  color: hsl(
-    var(--bulma-button-h),
-    var(--bulma-button-s),
-    var(--bulma-button-color-l)
-  );
-  cursor: pointer;
-  font-weight: var(--bulma-button-weight);
-  height: auto;
-  justify-content: center;
-  padding: calc(
-      var(--bulma-button-padding-vertical) - var(--bulma-button-border-width)
-    )
-    calc(
-      var(--bulma-button-padding-horizontal) - var(--bulma-button-border-width)
-    );
-  text-align: center;
-  white-space: nowrap;
-}
-
-button:hover {
-  color: rgb(50, 115, 220);
-  cursor: pointer;
 }
