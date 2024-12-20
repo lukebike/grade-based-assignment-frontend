@@ -70,8 +70,8 @@ async function getDetailsCocktail() {
   const detailsData = await detailsResponse.json();
   cocktailDetailsData = detailsData;
   cocktailData = detailsData;
-  cocktail(cocktailDetailsData);
   cocktail(cocktailData);
+  cocktail(cocktailDetailsData);
 }
 
 // ****** FUNCTIONS ******
@@ -81,10 +81,12 @@ function cocktail(cocktailData) {
   detailPicture.src = cocktailData.drinks[0].strDrinkThumb;
   detailName.innerText = `Cocktail Name: ${cocktailData.drinks[0].strDrink}`;
   detailCategory.innerText = `Category: ${cocktailData.drinks[0].strCategory}`;
-  if (cocktailData.drinks[0].strTags !== null) {
+  if (cocktailData.drinks[0].strTags === null) {
+    cocktailTags.innerText = `Tags: None`;
+  } else {
     cocktailTags.innerText = `Tags: ${cocktailData.drinks[0].strTags}`;
   }
-  cocktailTags.innerText = `Tags: None`;
+
   cocktailInstructions.innerText = cocktailData.drinks[0].strInstructions;
   cocktailServing.innerHTML = `Should be served in: ${cocktailData.drinks[0].strGlass}`;
   for (let i = 1; i <= 15; i++) {
