@@ -13,6 +13,7 @@ const detailCategory = document.querySelector("#detail-category");
 const cocktailTags = document.querySelector("#cocktail-tags");
 const cocktailInstructions = document.querySelector("#cocktail-instructions");
 const cocktailIngredients = document.querySelector("#cocktail-ingredients");
+const cocktailMeasure = document.querySelector("#cocktail-measure");
 const cocktailServing = document.querySelector("#cocktail-serving");
 
 // ****** Buttons ******
@@ -38,7 +39,7 @@ const favoritesPage = document.querySelector("#favorites-page");
 const searchResult = document.querySelector("#search-result");
 const cocktailSearch = document.querySelector("#cocktail-search");
 
-// ****** Constants ****** 
+// ****** Constants ******
 const FAVORITES_KEY = "favorites";
 
 // ****** Empty Object to Store API data locally ******
@@ -73,7 +74,7 @@ loadFavorites();
 async function getDetailsCocktail() {
   if (selectedCocktail == null) {
     throw new Error("No selected cocktail");
-  };
+  }
 
   const detailsResponse = await fetch(
     `${baseURL}/lookup.php?i=${selectedCocktail}`
@@ -89,9 +90,7 @@ async function getDetailsCocktail() {
 async function GetCocktailById(id) {
   if (id === "" || id === null) return;
 
-  const detailsResponse = await fetch(
-    `${baseURL}/lookup.php?i=${id}`
-  );
+  const detailsResponse = await fetch(`${baseURL}/lookup.php?i=${id}`);
 
   return detailsResponse.json();
 }
@@ -106,7 +105,7 @@ function cocktail(cocktailData) {
   if (cocktailData.drinks[0].strTags !== null) {
     const tags = cocktailData.drinks[0].strTags.split(",");
     cocktailTags.innerHTML = "";
-    tags.forEach(item => {
+    tags.forEach((item) => {
       cocktailTags.innerHTML += `<span class="tag is-dark mr-1">${item}</span>`;
     });
   } else {
@@ -114,6 +113,8 @@ function cocktail(cocktailData) {
   }
   cocktailInstructions.innerText = cocktailData.drinks[0].strInstructions;
   cocktailServing.innerHTML = `${cocktailData.drinks[0].strGlass}`;
+  cocktailIngredients.innerHTML = "";
+  cocktailMeasure.innerHTML = "";
   for (let i = 1; i <= 15; i++) {
     const ingredientNum = `strIngredient${i}`;
     const ingredients = cocktailData.drinks[0][ingredientNum];
@@ -121,6 +122,15 @@ function cocktail(cocktailData) {
       const newLi = document.createElement("li");
       newLi.innerHTML = `<i class="fa fa-circle mr-1 is-size-7" aria-hidden="true"></i>${cocktailData.drinks[0][ingredientNum]}`;
       cocktailIngredients.appendChild(newLi);
+    }
+  }
+  for (let i = 1; i <= 15; i++) {
+    const measureNum = `strMeasure${i}`;
+    const measure = cocktailData.drinks[0][measureNum];
+    if (measure) {
+      const newLi = document.createElement("li");
+      newLi.innerHTML = `<i class="fa fa-circle mr-1 is-size-7" aria-hidden="true"></i>${cocktailData.drinks[0][measureNum]}`;
+      cocktailMeasure.appendChild(newLi);
     }
   }
 
@@ -157,14 +167,13 @@ randomizerButton.addEventListener("click", () => {
   cocktailIngredients.innerText = "";
   randomizerButton.disabled = true;
   randomizerButton.innerHTML = `<i class="fa fa-spinner fa-spin fa-fw mr-1"></i> Loading...`;
-  getRandomCocktail()
-    .then(() => {
-      setTimeout(() => {
-        randomizerButton.disabled = false;
-        randomizerButton.innerHTML = originalHtml;
-        handleOnLinkClick(startLink.id);
-      }, 250);
-    });
+  getRandomCocktail().then(() => {
+    setTimeout(() => {
+      randomizerButton.disabled = false;
+      randomizerButton.innerHTML = originalHtml;
+      handleOnLinkClick(startLink.id);
+    }, 250);
+  });
 });
 
 startLink.addEventListener("click", (e) => {
@@ -198,15 +207,14 @@ searchButton.addEventListener("click", () => {
   });
 });
 
-
-[favoriteButton, addToFavoriteButton].forEach(favBtn => {
+[favoriteButton, addToFavoriteButton].forEach((favBtn) => {
   favBtn.addEventListener("click", () => {
     handleFavoriteButtonClick(favBtn);
     const drinkId = favBtn.dataset.id;
     if (isDrinkInFavorites(drinkId)) {
-      favBtn.innerHTML = `<i class="fa fa-star mr-2"></i> Remove from favorites`
+      favBtn.innerHTML = `<i class="fa fa-star mr-2"></i> Remove from favorites`;
     } else {
-      favBtn.innerHTML = `<i class="fa fa-star mr-2"></i> Add to favorites`
+      favBtn.innerHTML = `<i class="fa fa-star mr-2"></i> Add to favorites`;
     }
   });
 });
@@ -217,39 +225,32 @@ favoritesLink.addEventListener("click", () => {
 });
 
 async function searchFilters() {
+  cocktailIngredients.innerText = "";
   const searchQuery = document.querySelector("#cocktail-search").value;
   const searchFilter = document.querySelector("#search-filters").value;
   let data = {};
   if (searchQuery !== "") {
     try {
       if (searchFilter === "Name") {
-        const response = await fetch(
-          `${baseURL}/search.php?s=${searchQuery}`
-        );
+        const response = await fetch(`${baseURL}/search.php?s=${searchQuery}`);
         if (!response.ok) {
           throw new Error("Could not fetch name data");
         }
         data = await response.json();
       } else if (searchFilter === "Category") {
-        const response = await fetch(
-          `${baseURL}/filter.php?c=${searchQuery}`
-        );
+        const response = await fetch(`${baseURL}/filter.php?c=${searchQuery}`);
         if (!response.ok) {
           throw new Error("Could not fetch category data");
         }
         data = await response.json();
       } else if (searchFilter === "Ingredient") {
-        const response = await fetch(
-          `${baseURL}/filter.php?i=${searchQuery}`
-        );
+        const response = await fetch(`${baseURL}/filter.php?i=${searchQuery}`);
         if (!response.ok) {
           throw new Error("Could not fetch ingredient data");
         }
         data = await response.json();
       } else {
-        const response = await fetch(
-          `${baseURL}/filter.php?g=${searchQuery}`
-        );
+        const response = await fetch(`${baseURL}/filter.php?g=${searchQuery}`);
         if (!response.ok) {
           throw new Error("Could not fetch glass data");
         }
@@ -257,12 +258,18 @@ async function searchFilters() {
       }
       if (data.drinks === "no data found" || data.drinks === null) {
         searchResults = [];
-        document.querySelectorAll(".divider").forEach(divider => divider.classList.add("is-hidden"));
+        document
+          .querySelectorAll(".divider")
+          .forEach((divider) => divider.classList.add("is-hidden"));
         handlePagination();
-        window.alert("Did not find any data matching the selected search filter");
+        window.alert(
+          "Did not find any data matching the selected search filter"
+        );
       } else {
         searchResults = data.drinks;
-        document.querySelectorAll(".divider.is-hidden").forEach(divider => divider.classList.remove("is-hidden"));
+        document
+          .querySelectorAll(".divider.is-hidden")
+          .forEach((divider) => divider.classList.remove("is-hidden"));
         handlePagination();
       }
     } catch (error) {
@@ -277,7 +284,14 @@ function handlePagination() {
     let numberOfPages = Math.ceil(searchResults.length / ItemsPerPage);
     paginationList.innerHTML = "";
     for (let i = 0; i < numberOfPages; i++) {
-      paginationList.insertAdjacentHTML("beforeend", `<li><a href="#" onclick="goToPage(${i + 1})" data-page="${i + 1}" class="pagination-link ${i + 1 === currentPage ? "is-current" : ""}" aria-label="Goto page ${i + 1}">${i + 1}</a></li>`);
+      paginationList.insertAdjacentHTML(
+        "beforeend",
+        `<li><a href="#" onclick="goToPage(${i + 1})" data-page="${
+          i + 1
+        }" class="pagination-link ${
+          i + 1 === currentPage ? "is-current" : ""
+        }" aria-label="Goto page ${i + 1}">${i + 1}</a></li>`
+      );
     }
     goToPage(currentPage);
   } else {
@@ -292,22 +306,37 @@ function goToPage(pageNum) {
   let drinks = searchResults.slice(startIndex, endIndex);
   searchResult.innerHTML = "";
   for (let i = 0; i < drinks.length; i++) {
-    searchResult.insertAdjacentHTML("beforeend", `
-        <div data-id="${drinks[i].idDrink}" class="result-row is-flex mb-2" style="width: 100%" ">
-          <img class="image mr-2 rounded-border" src="${drinks[i].strDrinkThumb}" style="width: 50px; height: 50px" />
+    searchResult.insertAdjacentHTML(
+      "beforeend",
+      `
+        <div data-id="${
+          drinks[i].idDrink
+        }" class="result-row is-flex mb-2" style="width: 100%" ">
+          <img class="image mr-2 rounded-border" src="${
+            drinks[i].strDrinkThumb
+          }" style="width: 50px; height: 50px" />
           <div class="is-flex is-flex-direction-column">
             <p class="has-text-weight-medium">${drinks[i].strDrink}</p>
             <p>${drinks[i].strCategory ?? "Unspecified Category"}</p>
           </div>
-          <button type="button" onclick="viewCocktailDetails(${drinks[i].idDrink})" class="button is-small ml-auto mr-1 is-info is-outlined"><i class="fa fa-info fa-fw"></i></button>
-          <button type="button" onclick="handleFavoriteButtonClick(this)" data-id="${drinks[i].idDrink}" class="button is-small is-warning ${isDrinkInFavorites(drinks[i].idDrink) ? "" : "is-outlined"}"><i class="fa fa-star-o fa-fw"></i></button>
+          <button type="button" onclick="viewCocktailDetails(${
+            drinks[i].idDrink
+          })" class="button is-small ml-auto mr-1 is-info is-outlined"><i class="fa fa-info fa-fw"></i></button>
+          <button type="button" onclick="handleFavoriteButtonClick(this)" data-id="${
+            drinks[i].idDrink
+          }" class="button is-small is-warning ${
+        isDrinkInFavorites(drinks[i].idDrink) ? "" : "is-outlined"
+      }"><i class="fa fa-star-o fa-fw"></i></button>
         </div>
-      `);
+      `
+    );
   }
   // remove class from old page
   document.querySelector(".is-current").classList.remove("is-current");
   // add class to new page
-  document.querySelector(`a[data-page='${currentPage}']`).classList.add("is-current");
+  document
+    .querySelector(`a[data-page='${currentPage}']`)
+    .classList.add("is-current");
 }
 
 function handleFavoriteButtonClick(element) {
@@ -363,26 +392,37 @@ function loadFavorites() {
   if (favorites != null) {
     favoritesList.innerHTML = "";
     let drinksIds = JSON.parse(favorites);
-    drinksIds.forEach(id => {
-      GetCocktailById(id)
-        .then((data) => {
-          favoritesList.insertAdjacentHTML("beforeend", `
+    drinksIds.forEach((id) => {
+      GetCocktailById(id).then((data) => {
+        favoritesList.insertAdjacentHTML(
+          "beforeend",
+          `
             <div class="box is-flex mb-3">
-              <img class="mr-2" src="${data.drinks[0].strDrinkThumb}" style="width: 100px; height: 100px" />
+              <img class="mr-2" src="${
+                data.drinks[0].strDrinkThumb
+              }" style="width: 100px; height: 100px" />
               <div class="is-flex is-flex-direction-column ">
-                <p class="is-size-5 has-text-weight-medium">${data.drinks[0].strDrink}</p>
+                <p class="is-size-5 has-text-weight-medium">${
+                  data.drinks[0].strDrink
+                }</p>
                 <p class="has-text-black">${data.drinks[0].strCategory}</p>
                 <div class="is-flex mt-2">
-                <button type="button" onclick="viewCocktailDetails(${data.drinks[0].idDrink})" class="button is-info is-outlined mr-1"><i class="fa fa-info fa-fw"></i></button>
-                <button type="button" onclick="handleFavoriteButtonClick(this)" data-id="${data.drinks[0].idDrink}" class="button is-warning ${isDrinkInFavorites(data.drinks[0].idDrink) ? "" : "is-outlined"}"><i class="fa fa-star-o fa-fw"></i></button>
+                <button type="button" onclick="viewCocktailDetails(${
+                  data.drinks[0].idDrink
+                })" class="button is-info is-outlined mr-1"><i class="fa fa-info fa-fw"></i></button>
+                <button type="button" onclick="handleFavoriteButtonClick(this)" data-id="${
+                  data.drinks[0].idDrink
+                }" class="button is-warning ${
+            isDrinkInFavorites(data.drinks[0].idDrink) ? "" : "is-outlined"
+          }"><i class="fa fa-star-o fa-fw"></i></button>
                 </div>
               </div>
             </div>
-          `);
-        });
+          `
+        );
+      });
     });
-  }
-  else {
+  } else {
     favoritesList.innerHTML = "No favorites";
   }
 }
